@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const CampGround = require('./models/campground');
 const methodOverride = require('method-override')
 const app = express();
+const ejsMate = require('ejs-mate')
 
 mongoose.set('strictQuery', true);
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp', { useNewUrlParser: true, useUnifiedTopology: true })
@@ -27,6 +28,7 @@ db.once("open", () => {
 });
 
 //app.engine('html', require('ejs').renderFile);
+app.engine('ejs', ejsMate)
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
