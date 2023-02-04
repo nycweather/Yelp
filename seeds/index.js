@@ -28,15 +28,19 @@ db.once("open", () => {
 
 //Generating random data
 
-const sample = array => array[Math.floor(Math.random()*array.length)];
+const sample = array => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async (req, res) => {
     await CampGround.deleteMany({});
     for (let i = 0; i < 50; i++) {
         const random1000 = Math.floor(Math.random() * 1000);
+        const priceAmount = Math.floor(Math.random() * (40 - 15 + 1)) + 15;
         const camp = new CampGround({
             location: `${cities[random1000].city}, ${cities[random1000].state}`,
-            title: `${sample(descriptors)} ${sample(places)}`
+            title: `${sample(descriptors)} ${sample(places)}`,
+            image: `https://source.unsplash.com/collection/483251`,
+            description: 'Surreal Scenary',
+            price: priceAmount
         })
         await camp.save();
     }
